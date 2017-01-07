@@ -12,7 +12,40 @@ public class General {
 		chooser.setDialogTitle("Open your list");
 		chooser.showSaveDialog(null);
 		File list = chooser.getSelectedFile();
-		return list;
+		if (list !=null)
+			return list;
+		
+		Scanner scan = new Scanner(System.in);
+		System.out.println ("Enter the name of your file.");
+				
+		boolean noFile = true;
+		
+		File f = null;
+		
+		while(noFile) {
+			
+			String message = scan.next();
+			if (message.equals("Stop.")) {
+				break;
+			}
+			
+			f = new File(message);
+			
+			if(!f.exists()) {
+				try {
+					f.createNewFile();
+				} catch(IOException e){
+					System.out.println("That's not a valid file name. Try again");
+					continue;
+				}
+			}
+			
+			noFile = false;
+			
+		}
+		
+		scan.close();
+		return f;
 		
 	}
 	
