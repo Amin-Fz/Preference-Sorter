@@ -8,6 +8,7 @@ public class Preference {
 			+ "Remove. - Delete an entry by number\n"
 			+ "Print. - Print the order of list entries (is not necessarily the final list format)\n"
 			+ "List. - Add the members of another list to this list\n"
+			+ "Re-sort. - Create a new list with all the same members."
 			+ "Quit. - Exit the program and don't change the list."
 			;
 	
@@ -52,6 +53,8 @@ public class Preference {
 				addList(additions,order,scan);
 				
 			}
+			else if (next.equals("Re-sort."))
+				order = reSort(order, scan);
 			else if (next.equals("Quit."))
 				return;
 			else if (next.equals("Commands."))
@@ -182,6 +185,29 @@ public class Preference {
 		
 	}
 	
+	public static List<String> reSort(List<String> changed, Scanner scan) throws IOException
+	{
+		Collections.shuffle(changed);
+		
+		System.out.println("Choose a place to store the new order");
+		
+		File storage = General.getFile();
+		
+		General.writeTo(storage, changed);
+		
+		
+		BufferedReader r = General.getReader(storage); 
+		
+		List<String> order = new ArrayList<String>();
+		
+		Preference.addList(storage, order, scan);
+		
+		System.out.println("Input complete!");
+		r.close();
+		
+		return order;
+	}
+	
 	public boolean sort(List<String> order, Scanner input){
 		for(;;){
 			if (this.lower == this.upper) {
@@ -218,5 +244,7 @@ public class Preference {
 				return false;
 		}
 	}
+	
+	
 
 }
