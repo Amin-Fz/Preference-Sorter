@@ -1,6 +1,6 @@
 import java.io.*;
 import java.util.*;
-import javax.swing.*;
+//import javax.swing.*;
 
 public class Preference {
 	
@@ -18,7 +18,11 @@ public class Preference {
 		Scanner scan = new Scanner(System.in);
 		String next;
 		
-		File list = General.getFile();
+		File list = General.getAFile();
+		if (list == null) {
+			scan.close();
+			return;
+		}
 		
 		BufferedReader r = General.getReader(list);
 		
@@ -49,8 +53,9 @@ public class Preference {
 				
 			}
 			else if (next.equals("List.")) {
-				File additions = General.getFile();
-				addList(additions,order,scan);
+				File additions = General.getFile(scan);
+				if (additions != null)
+					addList(additions,order,scan);
 				
 			}
 			else if (next.equals("Re-sort."))
@@ -187,11 +192,15 @@ public class Preference {
 	
 	public static List<String> reSort(List<String> changed, Scanner scan) throws IOException
 	{
-		Collections.shuffle(changed);
 		
 		System.out.println("Choose a place to store the new order");
 		
-		File storage = General.getFile();
+		File storage = General.getFile(scan);
+		if (storage == null) {
+			return changed;
+		}
+		
+		Collections.shuffle(changed);
 		
 		General.writeTo(storage, changed);
 		

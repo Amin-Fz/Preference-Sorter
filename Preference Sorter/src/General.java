@@ -5,26 +5,33 @@ import java.util.*;
 import javax.swing.JFileChooser;
 
 public class General {
-
-	public static File getFile(){
+	
+	public static File getAFile() {
 		
-     	JFileChooser chooser = new JFileChooser(new File("c:\\Users\\"));
+		JFileChooser chooser = new JFileChooser(new File("c:\\Users\\"));
 		chooser.setDialogTitle("Open your list");
 		chooser.showSaveDialog(null);
-		File list = chooser.getSelectedFile();
-		if (list !=null)
-			return list;
 		
-		Scanner scan = new Scanner(System.in);
+		return chooser.getSelectedFile();
+		
+		
+	}
+
+	public static File getFile(Scanner scan){
+		
+     	File f = getAFile();
+		
+		if (f != null)
+			return f;
+		
+		
 		System.out.println ("Enter the name of your file.");
 				
 		boolean noFile = true;
-		
-		File f = null;
-		
+				
 		while(noFile) {
 			
-			String message = scan.next();
+			String message = scan.nextLine();
 			if (message.equals("Stop.")) {
 				break;
 			}
@@ -44,7 +51,6 @@ public class General {
 			
 		}
 		
-		scan.close();
 		return f;
 		
 	}

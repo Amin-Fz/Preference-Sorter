@@ -8,7 +8,7 @@ public class Shaver {
 	
 	public static void main(String[] args) throws IOException
 	{
-		File list = General.getFile();
+		File list = General.getAFile();
 		BufferedReader r = General.getReader(list);
 		
 		List<String> order = General.listToArray(r, false);

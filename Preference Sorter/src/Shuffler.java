@@ -8,7 +8,7 @@ public class Shuffler {
 	public static void main(String[] args) throws IOException 
 	{
 		File list;
-		list = General.getFile();
+		list = General.getAFile();
 		
 		BufferedReader r = General.getReader(list);
 		

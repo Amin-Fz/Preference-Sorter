@@ -17,7 +17,7 @@ public class QuotesAndCommas {
 	    //File animeList = new File("C:/Users/Amin/Documents/Anime_List_Years.txt");
 		
 		
-		File list = General.getFile();
+		File list = General.getAFile();
 
 		BufferedReader r = General.getReader(list);
 		

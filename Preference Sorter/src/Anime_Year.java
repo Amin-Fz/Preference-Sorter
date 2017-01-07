@@ -8,7 +8,9 @@ public class Anime_Year {
 	public static void main(String[] args) throws IOException
 	{
 		Scanner scan = new Scanner(System.in);
-		File list = General.getFile();
+		File list = General.getAFile();
+		if (list == null)
+			return;
 		BufferedReader r = General.getReader(list);
 		
 		List<Anime_Year> order = new ArrayList<Anime_Year>();
@@ -31,7 +33,9 @@ public class Anime_Year {
 		System.out.println("Year?");
 		int y = Integer.parseInt(scan.nextLine());
 		
-		File daFile = General.getFile();
+		File daFile = General.getFile(scan);
+		if (daFile == null)
+			return;
 		
 		List<String> year = new ArrayList<String>();
 		
