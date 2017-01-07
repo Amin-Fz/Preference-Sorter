@@ -1,4 +1,6 @@
 import java.io.*;
+
+//An app to turn a numbered anime list into a numbered list of anime seen before a specific year.
 import java.util.*;
 
 public class Anime_Year {
@@ -6,10 +8,8 @@ public class Anime_Year {
 	public static void main(String[] args) throws IOException
 	{
 		Scanner scan = new Scanner(System.in);
-		File animeList = new File("C:/Users/Amin/Documents/Anime_List_Years.txt");
-		FileInputStream animu = new FileInputStream(animeList);
-		InputStreamReader rank = new InputStreamReader(animu);
-		BufferedReader r = new BufferedReader(rank);
+		File list = General.getFile();
+		BufferedReader r = General.getReader(list);
 		
 		List<Anime_Year> order = new ArrayList<Anime_Year>();
 		String next = r.readLine();
@@ -31,24 +31,21 @@ public class Anime_Year {
 		System.out.println("Year?");
 		int y = Integer.parseInt(scan.nextLine());
 		
-		String thefile = String.format("C:/Users/Amin/Documents/Anime_List_%d.txt", y);
-		File dafile = new File(thefile);
-		if (!dafile.exists())
-			dafile.createNewFile();
-		FileOutputStream anime = new FileOutputStream(dafile);
-		OutputStreamWriter list = new OutputStreamWriter(anime);
-		BufferedWriter w = new BufferedWriter(list);
-		int k = 1;
+		File daFile = General.getFile();
+		
+		List<String> year = new ArrayList<String>();
+		
+		
 		for (int j = 0; j < order.size(); j++) {
-			String element = String.format("%d. %s", k, order.get(j).name);
+			String element = String.format("%s", order.get(j).name);
 			Anime_Year exists = order.get(j);
 			if (exists.year <= y) {
-				w.write(element);
-				w.newLine();
-				k++;
+				year.add(element);
 			}
 		}
-		w.close();
+		
+		year = General.numberList(year);
+		General.writeTo(daFile, year);
 		scan.close();
 	}
 	
